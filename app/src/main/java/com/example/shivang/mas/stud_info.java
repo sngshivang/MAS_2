@@ -186,5 +186,6 @@ public class stud_info extends AppCompatActivity {
         Log.d("Two",dig);
         Log.d("three",perc);
         lstfiller(fis,dig,perc);
+        Log.d("Hello","hi");
     }
 }
