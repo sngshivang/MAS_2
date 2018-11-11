@@ -34,6 +34,7 @@ public class atnd_2 extends AppCompatActivity {
     Integer absu[];
     Integer lveu[];
     int trip=0,mx;
+    boolean occ=true;
     addreg ad = new addreg(this);
     private void spinsel()
     {
@@ -173,42 +174,54 @@ public class atnd_2 extends AppCompatActivity {
     }
     public void setpre(View v)
     {
-        try {
-            ad.updtpre(sidu[trip], ++preu[trip]);
-            alrt("SUCCESS","ATTENDANCE SUCCESSFULLY UPDATED!");
+        if (occ) {
+            try {
+                ad.updtpre(sidu[trip], ++preu[trip]);
+                occ=false;
+                alrt("SUCCESS", "ATTENDANCE SUCCESSFULLY UPDATED!");
+            } catch (Exception e) {
+                Log.d("atnd2==setpre", e.toString());
+                alrt("OPERATION FAILED", "Critical Error Occurred. Check Logcat for further information. atnd_2==setpre");
+            }
         }
-        catch (Exception e)
+        else
         {
-            Log.d("atnd2==setpre",e.toString());
-            alrt("OPERATION FAILED","Critical Error Occurred. Check Logcat for further information. atnd_2==setpre");
+            alrt("FORBIDDEN","This operation is not allowed.");
         }
-
     }
     public void setabs(View v)
     {
-        try {
-            ad.updtabs(sidu[trip], ++absu[trip]);
-            alrt("SUCCESS","ATTENDANCE SUCCESSFULLY UPDATED!");
+        if (occ) {
+            try {
+                ad.updtabs(sidu[trip], ++absu[trip]);
+                occ=false;
+                alrt("SUCCESS", "ATTENDANCE SUCCESSFULLY UPDATED!");
+            } catch (Exception e) {
+                Log.d("atnd2==setabs", e.toString());
+                alrt("OPERATION FAILED", "Critical Error Occurred. Check Logcat for further information. atnd_2==setabs");
+            }
         }
-        catch (Exception e)
+        else
         {
-            Log.d("atnd2==setabs",e.toString());
-            alrt("OPERATION FAILED","Critical Error Occurred. Check Logcat for further information. atnd_2==setabs");
+            alrt("FORBIDDEN","This operation is not allowed.");
         }
-
     }
     public void setlve(View v)
     {
-        try {
-            ad.updtlve(sidu[trip], ++lveu[trip]);
-            alrt("SUCCESS","ATTENDANCE SUCCESSFULLY UPDATED!");
+        if (occ) {
+            try {
+                ad.updtlve(sidu[trip], ++lveu[trip]);
+                occ=false;
+                alrt("SUCCESS", "ATTENDANCE SUCCESSFULLY UPDATED!");
+            } catch (Exception e) {
+                Log.d("atnd2==setlve", e.toString());
+                alrt("OPERATION FAILED", "Critical Error Occurred. Check Logcat for further information. atnd_2==setlve");
+            }
         }
-        catch (Exception e)
+        else
         {
-            Log.d("atnd2==setlve",e.toString());
-            alrt("OPERATION FAILED","Critical Error Occurred. Check Logcat for further information. atnd_2==setlve");
+            alrt("FORBIDDEN","This operation is not allowed.");
         }
-
     }
     public void proceed(View v)
     {

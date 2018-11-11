@@ -12,6 +12,8 @@ import android.widget.Spinner;
 
 import org.json.JSONArray;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class stud_info extends AppCompatActivity {
@@ -23,21 +25,23 @@ public class stud_info extends AppCompatActivity {
         cspinfill();
         spinsel();
         sspinsel();
+        instant();
     }
     String cout,sout;
-    String nmeu[];
-    String sidu[];
-    Integer preu[];
-    Integer absu[];
-    Integer lveu[];
     int trip=0,mx;
     addreg ad = new addreg(this);
+    ListView lst;
+    ArrayList<fieldsinfo> al;
+    studadap sd;
+    private  void instant()
+    {
+        lst = findViewById(R.id.studlst);
+        al = new ArrayList<>();
+        sd = new studadap(this,al);
+    }
     private void lstfiller(String nme, String dig, String per)
     {
-        ListView lst = findViewById(R.id.studlst);
         fieldsinfo ifo = new fieldsinfo(nme,dig,per);
-        ArrayList<fieldsinfo> al = new ArrayList<fieldsinfo>();
-        studadap sd = new studadap(this,al);
         sd.add(ifo);
         lst.setAdapter(sd);
     }
@@ -49,8 +53,6 @@ public class stud_info extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 cout=adapterView.getSelectedItem().toString();
                 sspinfill();
-                //settable();
-                //out=adapterView.getItemAtPosition(0).toString();
 
             }
 
@@ -136,11 +138,6 @@ public class stud_info extends AppCompatActivity {
     {
         try {
             Cursor cr = ad.getallstud();
-            ArrayList<String> nme = new ArrayList<>();
-            ArrayList<String> sid = new ArrayList<>();
-            ArrayList<Integer> pre = new ArrayList<>();
-            ArrayList<Integer> abs = new ArrayList<>();
-            ArrayList<Integer> lve = new ArrayList<>();
             String tmp[] = new String[2];
             int nums[] = new int[4];
             if (cr.moveToFirst()) {
@@ -150,21 +147,10 @@ public class stud_info extends AppCompatActivity {
                     nums[0]=cr.getInt(4);
                     nums[1]=cr.getInt(5);
                     nums[2]=cr.getInt(6);
+                    nums[3]=nums[0]+nums[1]+nums[2];
                     preprocess(tmp,nums);
                 } while (cr.moveToNext());
             }
-            int sze = nme.size();
-            nmeu = new String[sze];
-            sidu = new String[sze];
-            preu = new Integer[sze];
-            absu = new Integer[sze];
-            lveu = new Integer[sze];
-            nmeu = nme.toArray(nmeu);
-            sidu = sid.toArray(sidu);
-            preu = pre.toArray(preu);
-            absu = abs.toArray(absu);
-            lveu = lve.toArray(lveu);
-            mx = sze;
             //displayit(trip);
         }
         catch (Exception e)
@@ -177,15 +163,26 @@ public class stud_info extends AppCompatActivity {
         String fis = nme[0]+" ("+nme[1]+")";
         String dig = "P: "+num[0]+" A: "+num[1]+" L: "+num[2];
         float per[]= new float[3];
-        //per[0] = num[0]/num[3];
-        //per[1] = num[1]/num[3];
-        //per[2] = num[2]/num[3];
-        String perc= "hello";
-        //String perc = "P: "+per[0]+"% A: "+per[1]+"% L: "+per[2]+"%";
+        Log.d("stud_info",String.valueOf(num[3]));
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+        if (num[3]!=0) {
+            per[0] = ((float)num[0] / num[3])*100;
+            per[1] = ((float)num[1] / num[3])*100;
+            per[2] = ((float)num[2] / num[3])*100;
+
+        }
+        else
+        {
+            per[0]=0;
+            per[1]=0;
+            per[2]=0;
+        }
+        //String perc= "hello";
+        String perc = "P: "+df.format(per[0])+"% A: "+df.format(per[1])+"% L: "+df.format(per[2])+"%";
         Log.d("one",fis);
         Log.d("Two",dig);
         Log.d("three",perc);
         lstfiller(fis,dig,perc);
-        Log.d("Hello","hi");
     }
 }
