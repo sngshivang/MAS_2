@@ -28,7 +28,6 @@ public class stud_info extends AppCompatActivity {
         instant();
     }
     String cout,sout;
-    int trip=0,mx;
     addreg ad = new addreg(this);
     ListView lst;
     ArrayList<fieldsinfo> al;

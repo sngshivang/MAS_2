@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String EXTRA_MESSAGE = "com.example.MAS.MESSAGE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog.Builder err = new AlertDialog.Builder(this);
             if (cn.getpwd().equals(pwd))
                 trip = true;
+            else
+            {
+                alrtmsg("FIELD BLANK","One or more fields are left blank.");
+            }
             if (trip) {
                 universaldat add = new universaldat(this);
                 add.addnew(tid,pwd);
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 err.create();
                 err.show();
             }
+
         }
         catch (Exception e)
         {
@@ -51,5 +55,13 @@ public class MainActivity extends AppCompatActivity {
     {
         Intent it = new Intent(this,signup.class);
         startActivity(it);
+    }
+    public void alrtmsg(String tag, String msg)
+    {
+        AlertDialog.Builder err= new AlertDialog.Builder(this);
+        err.setTitle(tag);
+        err.setMessage(msg);
+        err.create();
+        err.show();
     }
 }
