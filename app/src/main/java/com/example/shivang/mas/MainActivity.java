@@ -33,6 +33,13 @@ public class MainActivity extends AppCompatActivity {
             }
             if (trip) {
                 universaldat add = new universaldat(this);
+                try{
+                    add.frcrt();
+                }
+                catch (Exception e)
+                {
+                    Log.d("Mainactivity==login",e.toString());
+                }
                 add.addnew(tid,pwd);
                 Intent nit = new Intent(this,afterlogin.class);
                 startActivity(nit);

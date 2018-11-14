@@ -45,7 +45,12 @@ public class universaldat extends SQLiteOpenHelper {
         db.insert(tname,null,val);
         db.close();
     }
-
+    void frcrt()
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        String qry = "CREATE TABLE MASUNIDAT (login TEXT,pwd TEXT)";
+        db.execSQL(qry);
+    }
     String getAcc(String id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
