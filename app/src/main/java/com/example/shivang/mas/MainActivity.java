@@ -1,6 +1,7 @@
 package com.example.shivang.mas;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawermain);
+        checklogin();
     }
     public void login(View view)
     {
@@ -55,8 +57,23 @@ public class MainActivity extends AppCompatActivity {
         {
             Log.d("EXCEP",e.toString() );
         }
-        //Intent it = new Intent(this, atnd_2.class);
-        //startActivity(it);
+    }
+    void checklogin()
+    {
+        universaldat dt = new universaldat(this);
+        Cursor cr = dt.getAcc();
+        String inp="null";
+        if (cr.moveToFirst())
+        {
+            do {
+                inp = cr.getString(0);
+            }while (cr.moveToNext());
+        }
+        if (!inp.equals("null"))
+        {
+            Intent it = new Intent(this,alreadylogin.class);
+            startActivity(it);
+        }
     }
     public void signup(View view)
     {

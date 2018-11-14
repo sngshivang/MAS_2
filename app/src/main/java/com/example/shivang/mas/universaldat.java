@@ -51,14 +51,12 @@ public class universaldat extends SQLiteOpenHelper {
         String qry = "CREATE TABLE MASUNIDAT (login TEXT,pwd TEXT)";
         db.execSQL(qry);
     }
-    String getAcc(String id)
+    Cursor getAcc()
     {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cr = db.query(tname, new String[] {key_login,key_pwd}, key_login + "=?",new String[]{id},null,null,null);
-        if (cr!=null)
-            cr.moveToFirst();
-        String out = cr.getString(0);
-        cr.close();
-        return out;
+        SQLiteDatabase db = this.getWritableDatabase();
+        String qry = "SELECT * FROM MASUNIDAT";
+        Cursor cr = db.rawQuery(qry,null);
+        //Cursor cr = db.query(tname, new String[] {key_login,key_pwd}, key_login + "=?",new String[]{id},null,null,null);
+        return cr;
     }
 }

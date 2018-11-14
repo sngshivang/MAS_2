@@ -22,7 +22,8 @@
         <activity android:name=".addnewstud" />
         <activity android:name=".addclass" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".stud_info"></activity>
+        <activity android:name=".stud_info" />
+        <activity android:name=".alreadylogin"></activity>
     </application>
 
 </manifest>
