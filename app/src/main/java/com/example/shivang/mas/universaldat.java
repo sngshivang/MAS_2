@@ -59,4 +59,11 @@ public class universaldat extends SQLiteOpenHelper {
         //Cursor cr = db.query(tname, new String[] {key_login,key_pwd}, key_login + "=?",new String[]{id},null,null,null);
         return cr;
     }
+    void signout()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String qry = "DELETE from MASUNIDAT";
+        db.execSQL(qry);
+        db.close();
+    }
 }

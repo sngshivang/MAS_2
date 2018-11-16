@@ -55,4 +55,12 @@ public class alreadylogin extends AppCompatActivity {
         ad.create();
         ad.show();
     }
+    public void signout(View v)
+    {
+        universaldat dt = new universaldat(this);
+        dt.signout();
+        alrtmsg("SIGN OUT","You have been successfully signed out.");
+        Intent it = new Intent(this,MainActivity.class);
+        startActivity(it);
+    }
 }
