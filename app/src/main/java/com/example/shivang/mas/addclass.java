@@ -40,8 +40,16 @@ public class addclass extends AppCompatActivity {
             JSONArray ary = new JSONArray();
             ary.put("testing");
             String fin=ary.toString();
-            add.forcecrt();
+            try {
+                add.forcecrt();
+            }
+            catch (Exception f)
+            {
+                Log.e("addclass==dbcls", f.toString());
+            }
             add.addcls(inp,fin);
+            alrt("SUCCESS","CLASS ADDITION WAS SUCCESSFUL");
+            flclsspin();
         }
         catch (Exception e)
         {
@@ -111,9 +119,19 @@ public class addclass extends AppCompatActivity {
     private void newreg(String inp)
     {
         addreg ad = new addreg(this);
-        ad.tnameadd(inp);
-        ad.forcecrt();
-
+        try {
+            ad.tnameadd(inp);
+        }
+        catch (Exception e)
+        {
+            Log.e("addclass==newreg",e.toString());
+        }
+        try {
+            ad.forcecrt();
+        }
+        catch (Exception e) {
+            Log.e("addclass==newreg", e.toString());
+        }
     }
     public void alrt(String tag,String msg)
     {

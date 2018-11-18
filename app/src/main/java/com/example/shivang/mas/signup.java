@@ -18,7 +18,6 @@ public class signup extends AppCompatActivity {
     }
 
     public void signup_submit(View view){
-        AlertDialog.Builder err = new AlertDialog.Builder(signup.this);
         TextView tx = findViewById(R.id.name);
         String nme = tx.getText().toString();
         tx = findViewById(R.id.tid);
@@ -29,30 +28,46 @@ public class signup extends AppCompatActivity {
         String repwd = tx.getText().toString();
         if (nme.equals("")||tid.equals("")||pwd.equals("")||repwd.equals(""))
         {
-            err.setTitle("FIELDS BLANK!");
-            err.setMessage("One of more important fields are left blank");
-            err.create();
-            err.show();
+            alrt("FIELDS BLANK!","One of more important fields are left blank");
         }
         else if (!pwd.equals(repwd))
         {
-            err.setTitle("PASSWORD MISMATCH!");
-            err.setMessage("Entered are re-entered password do not match. Please verify again.");
-            err.create();
-            err.show();
+            alrt("PASSWORD MISMATCH!","Entered are re-entered password do not match. Please verify again.");
         }
         else
         {
             DatabaseHandler db = new DatabaseHandler(this);
-            db.addnewteach(new LOGIN(tid,nme,pwd));
-            Log.d("Reading: ", "Reading all contacts..");
-            List<LOGIN> contacts = db.getalllogin();
+            try{
+                db.frcrt();
+            }
+            catch (Exception e)
+            {
+                Log.e("signup==sign_up_submit",e.toString());
+            }
+            try {
+                db.addnewteach(new LOGIN(tid, nme, pwd));
+                Log.d("Reading: ", "Reading all contacts..");
+                List<LOGIN> contacts = db.getalllogin();
+                alrt("SUCCESS","Successfully added a new Teacher");
 
-            for (LOGIN cn : contacts) {
-                String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Password: " + cn.getpwd();
-                Log.d("Name: ", log);
-                String namesql = "Android";
+                for (LOGIN cn : contacts) {
+                    String log = "Id: " + cn.getID() + " ,Name: " + cn.getName() + " ,Password: " + cn.getpwd();
+                    Log.d("Name: ", log);
+                    String namesql = "Android";
+                }
+            }
+            catch (Exception e)
+            {
+                Log.e("signup==sign_up_submit",e.toString());
             }
         }
+    }
+    private void alrt(String tag, String msg)
+    {
+        AlertDialog.Builder er= new AlertDialog.Builder(this);
+        er.setMessage(msg);
+        er.setTitle(tag);
+        er.create();
+        er.show();
     }
 }

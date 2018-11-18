@@ -62,7 +62,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(TABLE_CONTACTS, null, values);
         db.close(); // Closing database connection
     }
-
+    void frcrt()
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
+                + KEY_ID + " TEXT PRIMARY KEY," + KEY_NAME + " TEXT,"
+                + KEY_PWD + " TEXT" + ")";
+        db.execSQL(CREATE_CONTACTS_TABLE);
+    }
     // Getting single contact
     /*LOGIN getContact(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
