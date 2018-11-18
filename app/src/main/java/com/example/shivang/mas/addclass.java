@@ -26,6 +26,7 @@ public class addclass extends AppCompatActivity {
         flclsspin();
         spinsel();
     }
+    //pandey was here
     String out="";
     public void addclass(View view)
     {
