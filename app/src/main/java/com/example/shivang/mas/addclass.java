@@ -39,7 +39,7 @@ public class addclass extends AppCompatActivity {
         try {
             clslst add = new clslst(this);
             JSONArray ary = new JSONArray();
-            ary.put("testing");
+            ary.put("NOT ADDED");
             String fin=ary.toString();
             try {
                 add.forcecrt();
@@ -109,6 +109,7 @@ public class addclass extends AppCompatActivity {
         try
         {
             newreg(out);
+            ed.setText("");
             alrt("SUCCESS", "You have successfully added a subject in the selected class. You can add other subjects or go back to perform other operations");
         }
         catch (Exception e)

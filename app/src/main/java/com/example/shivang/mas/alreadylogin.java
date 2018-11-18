@@ -37,7 +37,7 @@ public class alreadylogin extends AppCompatActivity {
     {
         EditText ed = findViewById(R.id.mainpwd);
         String ipass= ed.getText().toString();
-        if (pass.equals(pass))
+        if (pass.equals(ipass))
         {
            Intent it = new Intent(this,afterlogin.class);
            startActivity(it);

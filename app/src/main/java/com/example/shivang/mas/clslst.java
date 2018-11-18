@@ -30,7 +30,7 @@ public class clslst extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        String qry = "CREATE TABLE clslst (class TEXT, sub TEXT)";
+        String qry = "CREATE TABLE clslst (class TEXT PRIMARY KEY, sub TEXT)";
         db.execSQL(qry);
     }
 
@@ -72,7 +72,7 @@ public class clslst extends SQLiteOpenHelper{
     void forcecrt()
     {
         SQLiteDatabase db = getWritableDatabase();
-        String qry = "CREATE TABLE clslst (class TEXT, sub TEXT)";
+        String qry = "CREATE TABLE clslst (class TEXT PRIMARY KEY, sub TEXT)";
         db.execSQL(qry);
     }
     public Cursor getallcls()

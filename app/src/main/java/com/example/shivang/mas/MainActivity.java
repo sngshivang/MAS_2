@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void login(View view)
     {
-        boolean trip = false;
+        boolean trip = false,eqps=false;
         TextView tv = findViewById(R.id.mainusr);
         String tid = tv.getText().toString();
         tv = findViewById(R.id.mainpwd);
@@ -36,13 +36,15 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHandler db = new DatabaseHandler(this);
         try {
             LOGIN cn = db.getlogin(tid);
-            AlertDialog.Builder err = new AlertDialog.Builder(this);
-            if (cn.getpwd().equals(pwd))
-                trip = true;
-            else
-            {
-                alrtmsg("FIELD BLANK","One or more fields are left blank.");
+            try{
+                eqps=cn.getpwd().equals(pwd);
             }
+            catch (Exception fp)
+            {
+                Log.e("mainactivity==login",fp.toString());
+            }
+            if (eqps)
+                trip = true;
             if (trip) {
                 universaldat add = new universaldat(this);
                 try{
@@ -56,16 +58,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent nit = new Intent(this,afterlogin.class);
                 startActivity(nit);
             } else {
-                err.setTitle("INCORRECT INFOMRATION");
-                err.setMessage("The Teacher ID or Password is incorrect. Please verify those entries");
-                err.create();
-                err.show();
+                alrtmsg("INCORRECT INFOMRATION","The Teacher ID or Password is incorrect. Please verify those entries");
             }
 
         }
         catch (Exception e)
         {
-            Log.d("EXCEP",e.toString() );
+            alrtmsg("USERNAME NOT FOUND","The mentioned username has not been found in the records. Please verify its existence.");
+            Log.d("mainactivity",e.toString() );
         }
     }
     void checklogin()
