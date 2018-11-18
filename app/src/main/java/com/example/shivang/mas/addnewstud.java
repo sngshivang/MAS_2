@@ -1,6 +1,8 @@
 package com.example.shivang.mas;
 
 import android.database.Cursor;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,16 +19,21 @@ import java.util.ArrayList;
 
 public class addnewstud extends AppCompatActivity {
 
+    DrawerLayout dr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dr = findViewById(R.id.drawer_layout);
         setContentView(R.layout.activity_addnewstud);
         cspinfill();
         spinsel();
         sspinsel();
-        //sspinfill();
     }
     String cout,sout;
+    public void opendrawer(View v)
+    {
+        dr.openDrawer(GravityCompat.START);
+    }
     private void spinsel()
     {
         Spinner sp = findViewById(R.id.cls_spin2);

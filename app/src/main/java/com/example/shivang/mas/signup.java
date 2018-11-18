@@ -1,5 +1,7 @@
 package com.example.shivang.mas;
 
+        import android.support.v4.view.GravityCompat;
+        import android.support.v4.widget.DrawerLayout;
         import android.support.v7.app.AlertDialog;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
@@ -11,12 +13,17 @@ package com.example.shivang.mas;
 
 public class signup extends AppCompatActivity {
 
+    DrawerLayout dr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        dr = findViewById(R.id.drawer_layout);
     }
-
+    public void opendrawer(View v)
+    {
+        dr.openDrawer(GravityCompat.START);
+    }
     public void signup_submit(View view){
         TextView tx = findViewById(R.id.name);
         String nme = tx.getText().toString();

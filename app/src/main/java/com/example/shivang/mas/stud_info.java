@@ -1,6 +1,8 @@
 package com.example.shivang.mas;
 
 import android.database.Cursor;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,16 +20,22 @@ import java.util.ArrayList;
 
 public class stud_info extends AppCompatActivity {
 
+    DrawerLayout dr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stud_info);
+        dr = findViewById(R.id.drawer_layout);
         cspinfill();
         spinsel();
         sspinsel();
         instant();
     }
     String cout,sout;
+    public void opendrawer(View v)
+    {
+        dr.openDrawer(GravityCompat.START);
+    }
     addreg ad = new addreg(this);
     ListView lst;
     ArrayList<fieldsinfo> al;

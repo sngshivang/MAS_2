@@ -3,6 +3,8 @@ package com.example.shivang.mas;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.MediaDataSource;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,13 +14,19 @@ import android.widget.TextView;
 
 public class alreadylogin extends AppCompatActivity {
 
+    DrawerLayout dr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dr = findViewById(R.id.drawer_layout);
         setContentView(R.layout.activity_alreadylogin);
         prepop();
     }
     String uname,pass;
+    public void opendrawer(View v)
+    {
+        dr.openDrawer(GravityCompat.START);
+    }
     private void prepop()
     {
         universaldat dt = new universaldat(this);
