@@ -2,8 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_launcher_background"
-            android:title="Windows 10 Rocks!" />
+            android:id="@+id/nav_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_sync"
+            android:title="Sync with Server" />
+        <item
+            android:id="@+id/nav_out"
+            android:title="Sign Out" />
     </group>
 </menu>
