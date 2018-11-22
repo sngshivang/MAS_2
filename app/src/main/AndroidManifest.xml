@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.shivang.mas">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,7 +23,9 @@
         <activity android:name=".addclass" />
         <activity android:name=".MainActivity" />
         <activity android:name=".stud_info" />
-        <activity android:name=".alreadylogin"></activity>
+        <activity android:name=".alreadylogin" />
+        <activity android:name=".serv_sync"></activity>
     </application>
+
 
 </manifest>

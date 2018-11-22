@@ -45,7 +45,8 @@ public class alreadylogin extends AppCompatActivity {
                         }
                         else if (mt.getItemId()==R.id.nav_sync)
                         {
-                            alrtmsg("COMING SOON","This feature is coming soon.");
+                            Intent it = new Intent(alreadylogin.this,serv_sync.class);
+                            startActivity(it);
                         }
                         else if (mt.getItemId()==R.id.nav_out)
                         {
