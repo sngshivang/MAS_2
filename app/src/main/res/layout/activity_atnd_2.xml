@@ -124,51 +124,70 @@
 
         <Button
             android:id="@+id/present"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:padding="10dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:textSize="25sp"
-            android:onClick="setpre"
-            android:text="MARK PRESENT"
+            android:layout_marginStart="75dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="59dp"
             android:background="@drawable/asw"
+            android:onClick="setpre"
+            android:padding="10dp"
+            android:text="MARK PRESENT"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.559"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nametag" />
 
         <Button
             android:id="@+id/absent"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="40dp"
-            android:padding="10dp"
+            android:layout_marginStart="75dp"
+            android:layout_marginTop="8dp"
 
-            android:layout_marginRight="40dp"
-            android:textSize="25sp"
-            android:onClick="setabs"
+            android:layout_marginEnd="59dp"
             android:background="@drawable/asw"
+            android:onClick="setabs"
 
+            android:padding="10dp"
             android:text="MARK ABSENT"
-            app:layout_constraintTop_toBottomOf="@id/present"
-            />
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/present" />
 
         <Button
             android:id="@+id/leave"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:padding="10dp"
-
-            android:textSize="25sp"
+            android:layout_marginStart="75dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="59dp"
             android:background="@drawable/asw"
-
             android:onClick="setlve"
+            android:padding="10dp"
             android:text="APPLY FOR LEAVE"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/absent" />
+
+        <Button
+            android:id="@+id/clrpref"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="75dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="59dp"
+            android:background="@drawable/asw"
+            android:onClick="clratd"
+            android:padding="10dp"
+            android:text="CLEAR"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/leave" />
 
         <View
             android:id="@+id/view_bot"

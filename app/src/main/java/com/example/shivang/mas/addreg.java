@@ -35,7 +35,7 @@ public class addreg extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        String qry = "CREATE TABLE "+tname+" (name TEXT, sid TEXT, eid TEXT, mno TEXT, pre INT, abs INT, lve INT)";
+        String qry = "CREATE TABLE "+tname+" (name TEXT, sid TEXT, eid TEXT, mno TEXT, pre INT, abs INT, lve INT, moddt TEXT DEFAULT '1542870585747')";
         db.execSQL(qry);
     }
 
@@ -53,7 +53,7 @@ public class addreg extends SQLiteOpenHelper{
     void forcecrt()
     {
         SQLiteDatabase db = getWritableDatabase();
-        String qry = "CREATE TABLE "+tname+" (name TEXT, sid TEXT, eid TEXT, mno TEXT, pre INT, abs INT, lve INT)";
+        String qry = "CREATE TABLE "+tname+" (name TEXT, sid TEXT, eid TEXT, mno TEXT, pre INT, abs INT, lve INT, moddt TEXT DEFAULT '1542870585747')";
         db.execSQL(qry);
     }
     void addcls(String nme, String sid, String eid, String mno)
@@ -75,24 +75,31 @@ public class addreg extends SQLiteOpenHelper{
         SQLiteDatabase db = getWritableDatabase();
         String qry= "INSERT INTO "+tname+" (name,sid,eid,mno) VALUES ("+nme+","+
     }*/
-    void updtpre(String sid, int pre)
+    void updtpre(String sid, int pre, String dt)
     {
         SQLiteDatabase db = getWritableDatabase();
-        String qry= "UPDATE "+tname+" SET pre="+pre+" WHERE sid='"+sid+"'";
+        String qry= "UPDATE "+tname+" SET pre="+pre+", moddt="+dt+" WHERE sid='"+sid+"'";
         db.execSQL(qry);
         db.close();
     }
-    void updtabs(String sid, int abs)
+    void updtabs(String sid, int abs,String dt)
     {
         SQLiteDatabase db = getWritableDatabase();
-        String qry= "UPDATE "+tname+" SET abs="+abs+" WHERE sid='"+sid+"'";
+        String qry= "UPDATE "+tname+" SET abs="+abs+", moddt="+dt+" WHERE sid='"+sid+"'";
         db.execSQL(qry);
         db.close();
     }
-    void updtlve(String sid, int lve)
+    void updtlve(String sid, int lve,String dt)
     {
         SQLiteDatabase db = getWritableDatabase();
-        String qry= "UPDATE "+tname+" SET lve="+lve+" WHERE sid='"+sid+"'";
+        String qry= "UPDATE "+tname+" SET lve="+lve+", moddt="+dt+" WHERE sid='"+sid+"'";
+        db.execSQL(qry);
+        db.close();
+    }
+    void updt(String sid, String dt)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        String qry= "UPDATE "+tname+" SET moddt="+dt+" WHERE sid='"+sid+"'";
         db.execSQL(qry);
         db.close();
     }

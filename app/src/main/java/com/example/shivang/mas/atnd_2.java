@@ -18,7 +18,9 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class atnd_2 extends AppCompatActivity {
 
@@ -37,7 +39,13 @@ public class atnd_2 extends AppCompatActivity {
         nv = findViewById(R.id.nav_view);
         navstuff();
         navnmefill();
-
+        setdate();
+    }
+    long dat=0;
+    private void setdate()
+    {
+        Date df = new Date();
+        dat = df.getTime();
     }
     private void navstuff()
     {
@@ -97,8 +105,8 @@ public class atnd_2 extends AppCompatActivity {
     Integer preu[];
     Integer absu[];
     Integer lveu[];
+    Long tdat[];
     int trip=0,mx;
-    boolean occ=true;
     addreg ad = new addreg(this);
     private void spinsel()
     {
@@ -108,9 +116,6 @@ public class atnd_2 extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 cout=adapterView.getSelectedItem().toString();
                 sspinfill();
-                //settable();
-                //out=adapterView.getItemAtPosition(0).toString();
-
             }
 
             @Override
@@ -127,8 +132,6 @@ public class atnd_2 extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 sout=adapterView.getSelectedItem().toString();
                 settable();
-                //out=adapterView.getItemAtPosition(0).toString();
-
             }
 
             @Override
@@ -201,6 +204,7 @@ public class atnd_2 extends AppCompatActivity {
             ArrayList<Integer> pre = new ArrayList<>();
             ArrayList<Integer> abs = new ArrayList<>();
             ArrayList<Integer> lve = new ArrayList<>();
+            ArrayList<Long> tdt = new ArrayList<>();
             if (cr.moveToFirst()) {
                 do {
                     nme.add(cr.getString(0));
@@ -208,6 +212,7 @@ public class atnd_2 extends AppCompatActivity {
                     pre.add(cr.getInt(4));
                     abs.add(cr.getInt(5));
                     lve.add(cr.getInt(6));
+                    tdt.add(Long.valueOf(cr.getString(7)));
                 } while (cr.moveToNext());
             }
             int sze = nme.size();
@@ -216,11 +221,13 @@ public class atnd_2 extends AppCompatActivity {
             preu = new Integer[sze];
             absu = new Integer[sze];
             lveu = new Integer[sze];
+            tdat = new Long[sze];
             nmeu = nme.toArray(nmeu);
             sidu = sid.toArray(sidu);
             preu = pre.toArray(preu);
             absu = abs.toArray(absu);
             lveu = lve.toArray(lveu);
+            tdat = tdt.toArray(tdat);
             mx = sze;
             displayit(trip);
         }
@@ -228,6 +235,15 @@ public class atnd_2 extends AppCompatActivity {
         {
             Log.d("atnd_2==setit",e.toString());
         }
+    }
+    private boolean vfyatnd()
+    {
+        if (dat-tdat[trip]>86399999)
+        {
+           return true;
+        }
+        else
+        return  false;
     }
     private void displayit(int pos)
     {
@@ -238,10 +254,10 @@ public class atnd_2 extends AppCompatActivity {
     }
     public void setpre(View v)
     {
-        if (occ) {
+        if (vfyatnd()) {
             try {
-                ad.updtpre(sidu[trip], ++preu[trip]);
-                occ=false;
+                ad.updtpre(sidu[trip], ++preu[trip],String.valueOf(dat));
+                tdat[trip]=dat;
                 alrt("SUCCESS", "ATTENDANCE SUCCESSFULLY UPDATED!");
             } catch (Exception e) {
                 Log.d("atnd2==setpre", e.toString());
@@ -250,15 +266,15 @@ public class atnd_2 extends AppCompatActivity {
         }
         else
         {
-            alrt("FORBIDDEN","This operation is not allowed.");
+            alrt("FORBIDDEN","Attendance of this student has already been marked for this day. Please clear attendance setting or try again after 24 Hours.");
         }
     }
     public void setabs(View v)
     {
-        if (occ) {
+        if (vfyatnd()) {
             try {
-                ad.updtabs(sidu[trip], ++absu[trip]);
-                occ=false;
+                ad.updtabs(sidu[trip], ++absu[trip], String.valueOf(dat));
+                tdat[trip]=dat;
                 alrt("SUCCESS", "ATTENDANCE SUCCESSFULLY UPDATED!");
             } catch (Exception e) {
                 Log.d("atnd2==setabs", e.toString());
@@ -267,15 +283,15 @@ public class atnd_2 extends AppCompatActivity {
         }
         else
         {
-            alrt("FORBIDDEN","This operation is not allowed.");
+            alrt("FORBIDDEN","Attendance of this student has already been marked for this day. Please clear attendance setting or try again after 24 Hours.");
         }
     }
     public void setlve(View v)
     {
-        if (occ) {
+        if (vfyatnd()) {
             try {
-                ad.updtlve(sidu[trip], ++lveu[trip]);
-                occ=false;
+                ad.updtlve(sidu[trip], ++lveu[trip], String.valueOf(dat));
+                tdat[trip]=dat;
                 alrt("SUCCESS", "ATTENDANCE SUCCESSFULLY UPDATED!");
             } catch (Exception e) {
                 Log.d("atnd2==setlve", e.toString());
@@ -284,8 +300,7 @@ public class atnd_2 extends AppCompatActivity {
         }
         else
         {
-            alrt("FORBIDDEN","This operation is not allowed.");
-        }
+            alrt("FORBIDDEN","Attendance of this student has already been marked for this day. Please clear attendance setting or try again after 24 Hours.");        }
     }
     public void proceed(View v)
     {
@@ -299,6 +314,17 @@ public class atnd_2 extends AppCompatActivity {
             alrt("HOLD ON", "You have already reached the end of the attendance list");
         }
 
+    }
+    public void clratd(View v)
+    {
+        try {
+            ad.updt(sidu[trip], String.valueOf(dat-86400000));
+            tdat[trip]=dat-86400000;
+            alrt("SUCCESS", "MARKING CLEARED FOR THIS STUDENT !");
+        } catch (Exception e) {
+            Log.d("atnd2==clratd", e.toString());
+            alrt("OPERATION FAILED", "Critical Error Occurred. Check Logcat for further information. atnd_2==setlve");
+        }
     }
     private void alrt(String tag,String msg)
     {

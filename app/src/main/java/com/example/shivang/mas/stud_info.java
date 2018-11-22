@@ -22,6 +22,7 @@ import org.json.JSONArray;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class stud_info extends AppCompatActivity {
 
@@ -244,7 +245,6 @@ public class stud_info extends AppCompatActivity {
             per[1]=0;
             per[2]=0;
         }
-        //String perc= "hello";
         String perc = "P: "+df.format(per[0])+"% A: "+df.format(per[1])+"% L: "+df.format(per[2])+"%";
         Log.d("one",fis);
         Log.d("Two",dig);
