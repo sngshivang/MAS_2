@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.concurrent.locks.AbstractOwnableSynchronizer;
 
 public class uplfile  extends AsyncTask <String, Void, String> {
     @Override
@@ -30,7 +29,7 @@ public class uplfile  extends AsyncTask <String, Void, String> {
             if (sourceFile.isFile()) {
 
                 try {
-                    String upLoadServerUri = "http://qfrat.co.in/mas_sync.php?";
+                    String upLoadServerUri = "http://qfrat.co.in/php/mas_sync.php?";
 
                     // open a URL connection to the Servlet
                     FileInputStream fileInputStream = new FileInputStream(

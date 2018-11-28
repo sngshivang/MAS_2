@@ -28,10 +28,12 @@ public class addclass extends AppCompatActivity {
     DrawerLayout dr;
     NavigationView nv;
     String uname;
+    String ini;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addclass);
+        ini = new sysfile().readFromFile(this);
         dr = findViewById(R.id.drawer_layout);
         flclsspin();
         spinsel();
@@ -54,7 +56,8 @@ public class addclass extends AppCompatActivity {
                         }
                         else if (mt.getItemId()==R.id.nav_sync)
                         {
-                            alrt("COMING SOON","This feature is coming soon.");
+                            Intent it = new Intent(addclass.this,serv_sync.class);
+                            startActivity(it);
                         }
                         else if (mt.getItemId()==R.id.nav_out)
                         {
@@ -106,6 +109,7 @@ public class addclass extends AppCompatActivity {
             JSONArray ary = new JSONArray();
             ary.put("NOT ADDED");
             String fin=ary.toString();
+            add.settbl(ini+"_clslst");
             try {
                 add.forcecrt();
             }
@@ -126,6 +130,7 @@ public class addclass extends AppCompatActivity {
     {
         try {
             clslst temp = new clslst(this);
+            temp.settbl(ini+"_clslst");
             Cursor cr = temp.getallcls();
             ArrayList<String> lst = new ArrayList<>();
             if (cr.moveToFirst())
@@ -170,6 +175,7 @@ public class addclass extends AppCompatActivity {
         String fname = ed.getText().toString();
         push_sub(out,fname);
         out+="_"+fname;
+        out=ini+"_"+out;
         Log.d("addclass",out);
         try
         {
@@ -211,6 +217,7 @@ public class addclass extends AppCompatActivity {
     private void push_sub(String cls, String sub)
     {
         clslst cl = new clslst(this);
+        cl.settbl(ini+"_clslst");
         String inp = cl.getsub(cls);
         try{
         JSONArray ar = new JSONArray(inp);

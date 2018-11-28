@@ -18,7 +18,7 @@ import java.util.Vector;
 public class clslst extends SQLiteOpenHelper{
     public static final int dbver=3;
     private  static final String dbnme = "MAS";
-    private static  final String tname = "clslst";
+    private String tname = "clslst";
     private  static  final String key_class = "class";
     private  static  final  String key_sub= "sub";
 
@@ -30,7 +30,7 @@ public class clslst extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        String qry = "CREATE TABLE clslst (class TEXT PRIMARY KEY, sub TEXT)";
+        String qry = "CREATE TABLE "+tname+" (class TEXT PRIMARY KEY, sub TEXT)";
         db.execSQL(qry);
     }
 
@@ -40,6 +40,10 @@ public class clslst extends SQLiteOpenHelper{
         String qry = "DROP TABLE IF EXISTS " + tname;
         db.execSQL(qry);
         onCreate(db);
+    }
+    void settbl(String nme)
+    {
+        tname = nme;
     }
     void addcls(String nme, String sub)
     {
@@ -53,7 +57,7 @@ public class clslst extends SQLiteOpenHelper{
     void updatesub(String cls, String sub)
     {
         SQLiteDatabase db = getWritableDatabase();
-        String qry = "UPDATE clslst SET sub = '"+sub+"' WHERE class = '"+cls+"'";
+        String qry = "UPDATE "+tname+" SET sub = '"+sub+"' WHERE class = '"+cls+"'";
         db.execSQL(qry);
         db.close();
     }
@@ -61,7 +65,7 @@ public class clslst extends SQLiteOpenHelper{
     {
         SQLiteDatabase db = getWritableDatabase();
         String out="";
-        String qry = "SELECT * FROM clslst WHERE class = '"+cls+"'";
+        String qry = "SELECT * FROM "+tname+" WHERE class = '"+cls+"'";
         Cursor cst = db.rawQuery(qry, null);
         if (cst.moveToFirst())
         {
@@ -72,7 +76,7 @@ public class clslst extends SQLiteOpenHelper{
     void forcecrt()
     {
         SQLiteDatabase db = getWritableDatabase();
-        String qry = "CREATE TABLE clslst (class TEXT PRIMARY KEY, sub TEXT)";
+        String qry = "CREATE TABLE "+tname+" (class TEXT PRIMARY KEY, sub TEXT)";
         db.execSQL(qry);
     }
     public Cursor getallcls()
@@ -80,7 +84,7 @@ public class clslst extends SQLiteOpenHelper{
         //Vector v = new Vector();
         //ArrayList<String> lst = new ArrayList<>();
         SQLiteDatabase db = getWritableDatabase();
-        String qry = "SELECT * from clslst";
+        String qry = "SELECT * from "+tname;
         Cursor cst = db.rawQuery(qry,null);
         /*if (cst.moveToFirst())
         {

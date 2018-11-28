@@ -19,11 +19,13 @@ public class alreadylogin extends AppCompatActivity {
 
     DrawerLayout dr;
     NavigationView nv;
+    String ini;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dr = findViewById(R.id.drawer_layout);
         setContentView(R.layout.activity_alreadylogin);
+        ini = new sysfile().readFromFile(this);
         prepop();
         dr = findViewById(R.id.drawer_layout);
         nv = findViewById(R.id.nav_view);
@@ -114,8 +116,7 @@ public class alreadylogin extends AppCompatActivity {
     }
     public void signout(View v)
     {
-        alreadylogin al = new alreadylogin();
-        al.signfun();
+        signfun();
     }
     public void signfun()
     {

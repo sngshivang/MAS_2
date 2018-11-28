@@ -26,10 +26,13 @@ public class addnewstud extends AppCompatActivity {
     DrawerLayout dr;
     NavigationView nv;
     String uname;
+    sysfile sy;
+    String ini;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dr = findViewById(R.id.drawer_layout);
+        ini = new sysfile().readFromFile(this);
         setContentView(R.layout.activity_addnewstud);
         cspinfill();
         spinsel();
@@ -53,7 +56,8 @@ public class addnewstud extends AppCompatActivity {
                         }
                         else if (mt.getItemId()==R.id.nav_sync)
                         {
-                            alrt("COMING SOON","This feature is coming soon.");
+                            Intent it = new Intent(addnewstud.this,serv_sync.class);
+                            startActivity(it);
                         }
                         else if (mt.getItemId()==R.id.nav_out)
                         {
@@ -100,8 +104,6 @@ public class addnewstud extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 cout=adapterView.getSelectedItem().toString();
                 sspinfill();
-                //out=adapterView.getItemAtPosition(0).toString();
-
             }
 
             @Override
@@ -131,6 +133,7 @@ public class addnewstud extends AppCompatActivity {
     {
         try {
             clslst temp = new clslst(this);
+            temp.settbl(ini+"_clslst");
             Cursor cr = temp.getallcls();
             ArrayList<String> lst = new ArrayList<>();
             if (cr.moveToFirst())
@@ -156,6 +159,7 @@ public class addnewstud extends AppCompatActivity {
     {
         try {
             clslst temp = new clslst(this);
+            temp.settbl(ini+"_clslst");
             Log.d("TESLA",cout);
             String inp = temp.getsub(cout);
             JSONArray jsr = new JSONArray(inp);
@@ -186,7 +190,7 @@ public class addnewstud extends AppCompatActivity {
         String em = ev.getText().toString();
         ev = findViewById(R.id.add_smob);
         String mo = ev.getText().toString();
-        String tbl = cout+"_"+sout;
+        String tbl = ini+"_"+cout+"_"+sout;
         addreg ad = new addreg(this);
         try {
             ad.tnameadd(tbl);

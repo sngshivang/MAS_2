@@ -2,6 +2,7 @@ package com.example.shivang.mas;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.provider.ContactsContract;
 import android.support.design.internal.NavigationMenu;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,8 +13,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout dr;
@@ -28,7 +34,10 @@ public class MainActivity extends AppCompatActivity {
         nv = findViewById(R.id.nav_view);
         navstuff();
         navnmefill();
+        colspinfill();
+        spinsel();
     }
+    String[] acid;
     private void navstuff()
     {
         nv.setNavigationItemSelectedListener(
@@ -43,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else if (mt.getItemId()==R.id.nav_sync)
                         {
-                            alrtmsg("COMING SOON","This feature is coming soon.");
+                            Intent it = new Intent(MainActivity.this,serv_sync.class);
+                            startActivity(it);
                         }
                         else if (mt.getItemId()==R.id.nav_out)
                         {
@@ -58,6 +68,13 @@ public class MainActivity extends AppCompatActivity {
     {
         universaldat dt = new universaldat(this);
         uname="Please Sign in";
+        try{
+            dt.frcrt();
+        }
+        catch (Exception e)
+        {
+            Log.d("navnmefill",e.toString());
+        }
         Cursor cr = dt.getAcc();
         if (cr.moveToFirst())
         {
@@ -89,6 +106,9 @@ public class MainActivity extends AppCompatActivity {
         tv = findViewById(R.id.mainpwd);
         String pwd = tv.getText().toString();
         DatabaseHandler db = new DatabaseHandler(this);
+        sysfile sq = new sysfile();
+        String tname = sq.readFromFile(this)+"_loginmgmt";
+        db.settbl(tname);
         try {
             LOGIN cn = db.getlogin(tid);
             try{
@@ -115,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 alrtmsg("INCORRECT INFOMRATION","The Teacher ID or Password is incorrect. Please verify those entries");
             }
-
         }
         catch (Exception e)
         {
@@ -152,5 +171,55 @@ public class MainActivity extends AppCompatActivity {
         err.setMessage(msg);
         err.create();
         err.show();
+    }
+    private void colspinfill()
+    {
+        try {
+            DatabaseHandler temp = new DatabaseHandler(this);
+            Cursor cr = temp.getallcol();
+            ArrayList<String> lst = new ArrayList<>();
+            ArrayList<String> cid = new ArrayList<>();
+            if (cr.moveToFirst())
+            {
+                do {
+                    lst.add(cr.getString(0));
+                    cid.add(cr.getString(1));
+                }while (cr.moveToNext());
+            }
+            String tostr[] = new String[lst.size()];
+            acid = new String[lst.size()];
+            tostr = lst.toArray(tostr);
+            acid = cid.toArray(acid);
+            Spinner sp = findViewById(R.id.col_spin);
+            ArrayAdapter<String> adp = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,tostr);
+            adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            sp.setAdapter(adp);
+        }
+        catch (Exception e)
+        {
+            Log.d("MainActivity",e.toString());
+        }
+    }
+    String temp="";
+    private void spinsel()
+    {
+        Spinner sp = findViewById(R.id.col_spin);
+        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                temp=acid[adapterView.getSelectedItemPosition()];
+                setfile(temp);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+    private void setfile(String inp)
+    {
+        sysfile sv = new sysfile();
+        sv.writeToFile(inp, MainActivity.this);
     }
 }

@@ -16,4 +16,8 @@ public class serv_sync extends AppCompatActivity {
     {
         new uplfile().execute();
     }
+    public void dwwnld(View v)
+    {
+        new dwnfile().execute();
+    }
 }

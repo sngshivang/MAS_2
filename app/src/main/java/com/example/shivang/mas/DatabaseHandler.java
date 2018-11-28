@@ -15,7 +15,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "MAS";
 
     // Contacts table name
-    private static final String TABLE_CONTACTS = "loginmgmt";
+    private String TABLE_CONTACTS = "loginmgmt";
 
     // Contacts Table Columns names
     private static final String KEY_ID = "id";
@@ -25,7 +25,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -69,6 +68,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_ID + " TEXT PRIMARY KEY," + KEY_NAME + " TEXT,"
                 + KEY_PWD + " TEXT" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
+    }
+    void settbl(String nme)
+    {
+        TABLE_CONTACTS= nme;
     }
     // Getting single contact
     /*LOGIN getContact(String id) {
@@ -124,7 +127,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return contact list
         return contactList;
     }
-
+    public Cursor getallcol()
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        String qry = "SELECT * from instilst";
+        Cursor cst = db.rawQuery(qry,null);
+        return cst;
+    }
     // Updating single contact
     public int updatelogin(LOGIN contact) {
         SQLiteDatabase db = this.getWritableDatabase();

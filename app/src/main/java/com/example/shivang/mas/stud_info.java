@@ -28,11 +28,12 @@ public class stud_info extends AppCompatActivity {
 
     DrawerLayout dr;
     NavigationView nv;
-    String uname;
+    String uname,ini;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stud_info);
+        ini = new sysfile().readFromFile(this);
         dr = findViewById(R.id.drawer_layout);
         cspinfill();
         spinsel();
@@ -57,7 +58,8 @@ public class stud_info extends AppCompatActivity {
                         }
                         else if (mt.getItemId()==R.id.nav_sync)
                         {
-                            alrt("COMING SOON","This feature is coming soon.");
+                            Intent it = new Intent(stud_info.this,serv_sync.class);
+                            startActivity(it);
                         }
                         else if (mt.getItemId()==R.id.nav_out)
                         {
@@ -150,6 +152,7 @@ public class stud_info extends AppCompatActivity {
     {
         try {
             clslst temp = new clslst(this);
+            temp.settbl(ini+"_clslst");
             Cursor cr = temp.getallcls();
             ArrayList<String> lst = new ArrayList<>();
             if (cr.moveToFirst())
@@ -175,6 +178,7 @@ public class stud_info extends AppCompatActivity {
     {
         try {
             clslst temp = new clslst(this);
+            temp.settbl(ini+"_clslst");
             Log.d("TESLA",cout);
             String inp = temp.getsub(cout);
             JSONArray jsr = new JSONArray(inp);
@@ -197,7 +201,7 @@ public class stud_info extends AppCompatActivity {
     }
     private void settable()
     {
-        String tot = cout+"_"+sout;
+        String tot = ini+"_"+cout+"_"+sout;
         ad.tnameadd(tot);
         setit();
     }

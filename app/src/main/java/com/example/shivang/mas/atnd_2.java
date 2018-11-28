@@ -27,10 +27,12 @@ public class atnd_2 extends AppCompatActivity {
     DrawerLayout dr;
     NavigationView nv;
     String uname;
+    String ini;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_atnd_2);
+        ini = new sysfile().readFromFile(this);
         dr = findViewById(R.id.drawer_layout);
         cspinfill();
         spinsel();
@@ -144,6 +146,7 @@ public class atnd_2 extends AppCompatActivity {
     {
         try {
             clslst temp = new clslst(this);
+            temp.settbl(ini+"_clslst");
             Cursor cr = temp.getallcls();
             ArrayList<String> lst = new ArrayList<>();
             if (cr.moveToFirst())
@@ -169,6 +172,7 @@ public class atnd_2 extends AppCompatActivity {
     {
         try {
             clslst temp = new clslst(this);
+            temp.settbl(ini+"_clslst");
             Log.d("TESLA",cout);
             String inp = temp.getsub(cout);
             JSONArray jsr = new JSONArray(inp);
@@ -191,7 +195,7 @@ public class atnd_2 extends AppCompatActivity {
     }
     private void settable()
     {
-        String tot = cout+"_"+sout;
+        String tot = ini+"_"+cout+"_"+sout;
         ad.tnameadd(tot);
         setit();
     }

@@ -16,10 +16,12 @@ public class afterlogin extends AppCompatActivity {
     private DrawerLayout dr;
     NavigationView nv;
     String uname;
+    String ini;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_afterlogin);
+        ini = new sysfile().readFromFile(this);
         dr=findViewById(R.id.drawer_layout);
         dr = findViewById(R.id.drawer_layout);
         nv = findViewById(R.id.nav_view);

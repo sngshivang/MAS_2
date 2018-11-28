@@ -20,10 +20,12 @@ public class signup extends AppCompatActivity {
     DrawerLayout dr;
     NavigationView nv;
     String uname;
+    String ini;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        ini = new sysfile().readFromFile(this);
         dr = findViewById(R.id.drawer_layout);
         dr = findViewById(R.id.drawer_layout);
         nv = findViewById(R.id.nav_view);
@@ -102,6 +104,8 @@ public class signup extends AppCompatActivity {
         else
         {
             DatabaseHandler db = new DatabaseHandler(this);
+            sysfile sy = new sysfile();
+            db.settbl(sy.readFromFile(this)+"_loginmgmt");
             try{
                 db.frcrt();
             }
@@ -118,7 +122,6 @@ public class signup extends AppCompatActivity {
                 for (LOGIN cn : contacts) {
                     String log = "Id: " + cn.getID() + " ,Name: " + cn.getName() + " ,Password: " + cn.getpwd();
                     Log.d("Name: ", log);
-                    String namesql = "Android";
                 }
             }
             catch (Exception e)

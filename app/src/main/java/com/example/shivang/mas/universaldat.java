@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class universaldat extends SQLiteOpenHelper {
     private  static  final int dbver = 3;
     private  static final String dbnme = "MAS";
-    private static  final String tname = "MASUNIDAT";
+    private static final String tname = "MASUNIDAT";
     private  static  final String key_login = "login";
     private  static  final  String key_pwd = "pwd";
     private  static  final String tandd = "tmdt";
@@ -27,7 +27,7 @@ public class universaldat extends SQLiteOpenHelper {
     @Override
     public  void onCreate(SQLiteDatabase db)
     {
-        String qry = "CREATE TABLE MASUNIDAT (login TEXT,pwd TEXT)";
+        String qry = "CREATE TABLE "+tname+" (login TEXT,pwd TEXT)";
         db.execSQL(qry);
     }
     @Override
@@ -48,13 +48,13 @@ public class universaldat extends SQLiteOpenHelper {
     void frcrt()
     {
         SQLiteDatabase db = getWritableDatabase();
-        String qry = "CREATE TABLE MASUNIDAT (login TEXT,pwd TEXT)";
+        String qry = "CREATE TABLE "+tname+" (login TEXT,pwd TEXT)";
         db.execSQL(qry);
     }
     Cursor getAcc()
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String qry = "SELECT * FROM MASUNIDAT";
+        String qry = "SELECT * FROM "+tname;
         Cursor cr = db.rawQuery(qry,null);
         //Cursor cr = db.query(tname, new String[] {key_login,key_pwd}, key_login + "=?",new String[]{id},null,null,null);
         return cr;
@@ -62,7 +62,7 @@ public class universaldat extends SQLiteOpenHelper {
     void signout()
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String qry = "DELETE from MASUNIDAT";
+        String qry = "DELETE from "+tname;
         db.execSQL(qry);
         db.close();
     }

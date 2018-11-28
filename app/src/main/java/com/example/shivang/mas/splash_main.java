@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 public class splash_main extends Activity {
 
@@ -50,6 +51,13 @@ public class splash_main extends Activity {
     Boolean checklogin()
     {
         universaldat dt = new universaldat(this);
+        try{
+            dt.frcrt();
+        }
+        catch (Exception e)
+        {
+            Log.d("Mainactivity==login",e.toString());
+        }
         Cursor cr = dt.getAcc();
         String inp="null";
         if (cr.moveToFirst())
