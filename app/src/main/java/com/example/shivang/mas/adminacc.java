@@ -8,11 +8,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
-public class afterlogin extends AppCompatActivity {
+public class adminacc extends AppCompatActivity {
     private DrawerLayout dr;
     NavigationView nv;
     String uname;
@@ -20,7 +22,7 @@ public class afterlogin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_afterlogin);
+        setContentView(R.layout.activity_adminacc);
         ini = new sysfile().readFromFile(this);
         dr=findViewById(R.id.drawer_layout);
         dr = findViewById(R.id.drawer_layout);
@@ -37,12 +39,12 @@ public class afterlogin extends AppCompatActivity {
                         mt.setChecked(true);
                         if (mt.getItemId()==R.id.nav_home)
                         {
-                            Intent it = new Intent(afterlogin.this,MainActivity.class);
+                            Intent it = new Intent(adminacc.this,MainActivity.class);
                             startActivity(it);
                         }
                         else if (mt.getItemId()==R.id.nav_sync)
                         {
-                            Intent it = new Intent(afterlogin.this,serv_sync.class);
+                            Intent it = new Intent(adminacc.this,serv_sync.class);
                             startActivity(it);
                         }
                         else if (mt.getItemId()==R.id.nav_out)
@@ -81,25 +83,29 @@ public class afterlogin extends AppCompatActivity {
     {
         dr.openDrawer(GravityCompat.START);
     }
-    public void gotonstud(View view)
+    public void proceedad(View v)
     {
-        Intent it = new Intent(this,addnewstud.class);
-        startActivity(it);
-    }
-    public void gotoacls(View view)
-    {
-        Intent it = new Intent(this,addclass.class);
-        startActivity(it);
-    }
-    public void markup(View v)
-    {
-        Intent it = new Intent(this, atnd_2.class);
-        startActivity(it);
-    }
-    public void studinfo(View v)
-    {
-        Intent it = new Intent(this,stud_info.class);
-        startActivity(it);
+        EditText ed = findViewById(R.id.mainusr);
+        String iname = ed.getText().toString();
+        ed = findViewById(R.id.mainid);
+        String iid = ed.getText().toString();
+        ed = findViewById(R.id.mainpwd);
+        String pwd = ed.getText().toString();
+        ed = findViewById(R.id.mainrepwd);
+        String repwd = ed.getText().toString();
+        if (!iname.equals("")&&!iid.equals("")&&!pwd.equals("")&&!repwd.equals("")&&pwd.equals(repwd))
+        {
+            datinsti dt = new datinsti(this);
+            try{
+                dt.frcrt();
+            }
+            catch (Exception e)
+            {
+                Log.e("adminaccc",e.toString());
+            }
+            dt.addnew(iname,iid,pwd);
+            alrtmsg("SUCCESS","This admin account was created successfully. You can go ahead and add teacher, classes and students.");
+        }
     }
     private void alrtmsg(String tag, String msg)
     {

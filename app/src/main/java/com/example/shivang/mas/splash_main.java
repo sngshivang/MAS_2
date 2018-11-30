@@ -21,7 +21,6 @@ public class splash_main extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_main);
-        final boolean trip = checklogin();
         new Handler().postDelayed(new Runnable() {
 
             /*
@@ -31,49 +30,11 @@ public class splash_main extends Activity {
 
             @Override
             public void run() {
-                // This method will be executed once the timer is over
-                // Start your app main activity
-                if (trip) {
-                    Intent i = new Intent(splash_main.this, MainActivity.class);
+                    Intent i = new Intent(splash_main.this, serv_sync.class);
                     startActivity(i);
-                }
-                else
-                {
-                    Intent it = new Intent(splash_main.this,alreadylogin.class);
-                    startActivity(it);
-                }
 
-                // close this activity
                 finish();
             }
         }, SPLASH_TIME_OUT);
     }
-    Boolean checklogin()
-    {
-        universaldat dt = new universaldat(this);
-        try{
-            dt.frcrt();
-        }
-        catch (Exception e)
-        {
-            Log.d("Mainactivity==login",e.toString());
-        }
-        Cursor cr = dt.getAcc();
-        String inp="null";
-        if (cr.moveToFirst())
-        {
-            do {
-                inp = cr.getString(0);
-            }while (cr.moveToNext());
-        }
-        if (inp.equals("null"))
-        {
-            return  true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
 }

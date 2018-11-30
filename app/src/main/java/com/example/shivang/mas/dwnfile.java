@@ -1,5 +1,6 @@
 package com.example.shivang.mas;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
@@ -16,11 +17,13 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class dwnfile  extends AsyncTask <String, Void, String> {
+    String urll="http://qfrat.co.in/php/uploads/";
+    ProgressDialog br;
     @Override
     protected String doInBackground(String... params) {
         int count;
         try {
-            URL url = new URL("http://qfrat.co.in/php/uploads/MAS");
+            URL url = new URL(urll);
             URLConnection conection = url.openConnection();
             conection.connect();
 
@@ -65,7 +68,7 @@ public class dwnfile  extends AsyncTask <String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-
+        br.dismiss();
     }
 
     @Override
@@ -74,5 +77,13 @@ public class dwnfile  extends AsyncTask <String, Void, String> {
 
     @Override
     protected void onProgressUpdate(Void... values) {
+    }
+    protected void setfile(String nme)
+    {
+        urll+=nme;
+    }
+    protected void setbar(ProgressDialog bre)
+    {
+        this.br=bre;
     }
 }

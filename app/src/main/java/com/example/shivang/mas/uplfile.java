@@ -1,8 +1,11 @@
 package com.example.shivang.mas;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-
+import android.widget.ProgressBar;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,12 +13,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class uplfile  extends AsyncTask <String, Void, String> {
+    String sourceFileUri = "/data/data/com.example.shivang.mas/databases/";
+    ProgressDialog br;
+    AlertDialog.Builder ad;
+    Context ct;
+    String msg="noerr";
     @Override
     protected String doInBackground(String... params) {
 
         try {
-            String sourceFileUri = "/data/data/com.example.shivang.mas/databases/MASREG";
-
             HttpURLConnection conn = null;
             DataOutputStream dos = null;
             String lineEnd = "\r\n";
@@ -101,17 +107,15 @@ public class uplfile  extends AsyncTask <String, Void, String> {
 
                 } catch (Exception e) {
 
-                    // dialog.dismiss();
                     Log.e("INTNET",e.toString());
 
                 }
-                // dialog.dismiss();
-
-            } // End else block
+            }
 
 
         } catch (Exception ex) {
-            // dialog.dismiss();
+            msg=ex.toString();
+            alrtmsg("FAILURE","Failed to resolve hostname for the server. Please check your internet connection.");
             Log.e("INTNET", ex.toString());
         }
         return "Executed";
@@ -119,14 +123,32 @@ public class uplfile  extends AsyncTask <String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-
+        br.dismiss();
     }
 
     @Override
     protected void onPreExecute() {
+        br.show();
     }
 
     @Override
     protected void onProgressUpdate(Void... values) {
+    }
+    protected void setfile(String nme)
+    {
+        sourceFileUri+=nme;
+    }
+    protected void setbar(ProgressDialog bre,Context adb)
+    {
+        this.ct=adb;
+        this.br=bre;
+    }
+    protected void alrtmsg(String tag, String msg)
+    {
+        ad = new AlertDialog.Builder(ct);
+        ad.setMessage(msg);
+        ad.setTitle(tag);
+        ad.create();
+        ad.show();
     }
 }

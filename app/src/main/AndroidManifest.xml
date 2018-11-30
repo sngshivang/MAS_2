@@ -27,7 +27,8 @@
         <activity android:name=".stud_info" />
         <activity android:name=".alreadylogin" />
         <activity android:name=".serv_sync" />
-        <activity android:name=".adminreg"></activity>
+        <activity android:name=".adminreg" />
+        <activity android:name=".adminacc"></activity>
     </application>
 
 </manifest>

@@ -8,6 +8,9 @@
             android:id="@+id/nav_sync"
             android:title="Sync with Server" />
         <item
+            android:title="Add Admin Account"
+            android:id="@+id/nav_addad" />
+        <item
             android:id="@+id/nav_out"
             android:title="Sign Out" />
     </group>
