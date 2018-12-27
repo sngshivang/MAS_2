@@ -115,11 +115,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="15dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:padding="8dp"
-            android:hint="  Enter Password"
             android:background="#a2d9e5f1"
+            android:ems="10"
+            android:hint="  Enter Password"
+            android:inputType="textPassword"
+            android:padding="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -142,12 +142,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:padding="8dp"
             android:layout_marginTop="15dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="  Re-Enter Password"
             android:background="#a2d9e5f1"
+            android:ems="10"
+            android:hint="  Re-Enter Password"
+            android:inputType="textPassword"
+            android:padding="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
