@@ -69,6 +69,11 @@ public class atnd_2 extends AppCompatActivity {
                         {
                             signfun();
                         }
+                        else if (mt.getItemId()==R.id.nav_addad)
+                        {
+                            Intent it = new Intent(atnd_2.this,adminacc.class);
+                            startActivity(it);
+                        }
                         dr.closeDrawers();
                         return true;
                     }

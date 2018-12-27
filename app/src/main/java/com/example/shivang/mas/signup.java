@@ -46,11 +46,17 @@ public class signup extends AppCompatActivity {
                         }
                         else if (mt.getItemId()==R.id.nav_sync)
                         {
-                            alrt("COMING SOON","This feature is coming soon.");
+                            Intent it = new Intent(signup.this,serv_sync.class);
+                            startActivity(it);
                         }
                         else if (mt.getItemId()==R.id.nav_out)
                         {
                             signfun();
+                        }
+                        else if (mt.getItemId()==R.id.nav_addad)
+                        {
+                            Intent it = new Intent(signup.this,adminacc.class);
+                            startActivity(it);
                         }
                         dr.closeDrawers();
                         return true;

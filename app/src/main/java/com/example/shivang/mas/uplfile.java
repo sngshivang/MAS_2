@@ -4,8 +4,12 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,8 +20,15 @@ public class uplfile  extends AsyncTask <String, Void, String> {
     String sourceFileUri = "/data/data/com.example.shivang.mas/databases/";
     ProgressDialog br;
     AlertDialog.Builder ad;
-    Context ct;
+    private Context ct;
     String msg="noerr";
+    private View vw;
+    private DrawerLayout cl;
+    public uplfile(Context cw, View vwe, DrawerLayout cle){
+        ct = cw;
+        vw = vwe;
+        cl = cle;
+    }
     @Override
     protected String doInBackground(String... params) {
 
@@ -124,6 +135,7 @@ public class uplfile  extends AsyncTask <String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         br.dismiss();
+        statusmod();
     }
 
     @Override
@@ -150,5 +162,15 @@ public class uplfile  extends AsyncTask <String, Void, String> {
         ad.setTitle(tag);
         ad.create();
         ad.show();
+    }
+    private void statusmod()
+    {
+        TextView tv=vw.findViewById(R.id.statustext);
+        String cnum = tv.getText().toString();
+        Log.e("statusmod",cnum);
+        int tnum = Integer.parseInt(cnum)+1;
+        tv.setText(String.valueOf(tnum));
+        cl.removeAllViews();
+        cl.addView(vw);
     }
 }

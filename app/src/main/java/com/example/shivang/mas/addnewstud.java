@@ -63,6 +63,11 @@ public class addnewstud extends AppCompatActivity {
                         {
                             signfun();
                         }
+                        else if (mt.getItemId()==R.id.nav_addad)
+                        {
+                            Intent it = new Intent(addnewstud.this,adminacc.class);
+                            startActivity(it);
+                        }
                         dr.closeDrawers();
                         return true;
                     }

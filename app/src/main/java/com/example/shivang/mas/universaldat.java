@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class universaldat extends SQLiteOpenHelper {
     private  static  final int dbver = 3;
-    private  static final String dbnme = "MAS";
+    private  static final String dbnme = "MASLOCAL";
     private static final String tname = "MASUNIDAT";
     private  static  final String key_login = "login";
     private  static  final  String key_pwd = "pwd";

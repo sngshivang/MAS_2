@@ -51,6 +51,11 @@ public class adminacc extends AppCompatActivity {
                         {
                             signfun();
                         }
+                        else if (mt.getItemId()==R.id.nav_addad)
+                        {
+                            Intent it = new Intent(adminacc.this,adminacc.class);
+                            startActivity(it);
+                        }
                         dr.closeDrawers();
                         return true;
                     }

@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -57,6 +59,11 @@ public class serv_sync extends AppCompatActivity {
                         {
                             signfun();
                         }
+                        else if (mt.getItemId()==R.id.nav_addad)
+                        {
+                            Intent it = new Intent(serv_sync.this,adminacc.class);
+                            startActivity(it);
+                        }
                         dr.closeDrawers();
                         return true;
                     }
@@ -66,6 +73,13 @@ public class serv_sync extends AppCompatActivity {
     {
         universaldat dt = new universaldat(this);
         uname="Please Sign in";
+        try{
+            dt.frcrt();
+        }
+        catch (Exception e)
+        {
+            Log.e("serv_sync",e.toString());
+        }
         Cursor cr = dt.getAcc();
         if (cr.moveToFirst())
         {
@@ -92,12 +106,13 @@ public class serv_sync extends AppCompatActivity {
     public void upload(View v)
     {
         probar();
-        //salrtmsg();
-        uplfile upl = new uplfile();
+        View vw = getLayoutInflater().inflate(R.layout.activity_serv_sync, null, false);
+        DrawerLayout ct =  findViewById(R.id.drawer_layout);
+        uplfile upl = new uplfile(this,vw,ct);
         upl.setbar(pd,this);
         upl.setfile("MAS");
         upl.execute();
-        uplfile upl2 = new uplfile();
+        uplfile upl2 = new uplfile(this,vw,ct);
         upl2.setbar(pd,this);
         upl2.setfile("MASREG");
         upl2.execute();
@@ -105,11 +120,13 @@ public class serv_sync extends AppCompatActivity {
     public void download(View v)
     {
         probar();
-        dwnfile upl = new dwnfile();
+        DrawerLayout ct =  findViewById(R.id.drawer_layout);
+        View vw = getLayoutInflater().inflate(R.layout.activity_serv_sync, null, false);
+        dwnfile upl = new dwnfile(this,vw,ct);
         upl.setbar(pd);
         upl.setfile("MAS");
         upl.execute();
-        dwnfile upl2 = new dwnfile();
+        dwnfile upl2 = new dwnfile(this,vw,ct);
         upl2.setbar(pd);
         upl2.setfile("MASREG");
         upl2.execute();

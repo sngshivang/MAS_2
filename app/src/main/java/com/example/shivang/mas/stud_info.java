@@ -65,6 +65,11 @@ public class stud_info extends AppCompatActivity {
                         {
                             signfun();
                         }
+                        else if (mt.getItemId()==R.id.nav_addad)
+                        {
+                            Intent it = new Intent(stud_info.this,adminacc.class);
+                            startActivity(it);
+                        }
                         dr.closeDrawers();
                         return true;
                     }
